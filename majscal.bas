@@ -1,5 +1,5 @@
 10 PRINT "Please input your musicial alphabet"
-20 INPUT a$
+20 INPUT ">",a$
 30 IF a$ = "C" THEN PRINT "C - D - E - F - G - A - B - C"
 40 IF a$ = "D" THEN PRINT "D - E - F♯ - G - A - B - C♯ - D"
 50 IF a$ = "E" THEN PRINT "E - F♯ - G♯ - A - B - C♯ - D♯ - E"
