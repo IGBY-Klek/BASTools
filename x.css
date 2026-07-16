@@ -11,7 +11,7 @@ window#waybar {
     background: transparent;
 }
 
-/* 所有模块 */
+/* 所有模块的通用布局 */
 #custom-,
 #workspaces,
 #window,
@@ -24,88 +24,81 @@ window#waybar {
 #clock,
 #tray,
 #backlight {
-    margin: 0 2px;
-    padding: 4px 14px;
-    border-radius: 0;
-    transform: skewX(-20deg);
+    /* 
+       利用负外边距让倾斜块互相靠拢。
+       由于我们使用渐变切出了斜角，模块两边会有透明留白，
+       通过左右 -10px 的 margin 可以让它们无缝拼接。
+    */
+    margin: 0 -10px; 
+    padding: 4px 24px; /* 增加水平内边距，确保文字不会重叠到斜角区域 */
 }
 
-/* 文字反倾斜 */
-#custom- label,
-#workspaces button,
-#window label,
-#pulseaudio label,
-#network label,
-#cpu label,
-#memory label,
-#temperature label,
-#battery label,
-#clock label,
-#tray {
-    transform: skewX(20deg);
-}
+/* 
+   由于没有使用 transform，文字本身天然就是直立的，
+   不需要再做任何反倾斜处理。
+*/
 
 
-/* 左侧模块 */
+/* ==================== 模块背景色控制 ==================== */
+/* 
+   原理说明：
+   linear-gradient(110deg, transparent 10px, #颜色 10px, #颜色 calc(100% - 10px), transparent calc(100% - 10px))
+   - 110deg：决定了倾斜的角度（90deg 是垂直，110deg 相当于向右倾斜 20 度）
+   - transparent 10px 到 #颜色 10px：左侧切出斜角
+   - #颜色 calc(100% - 10px) 到 transparent calc(100% - 10px)：右侧切出平行的斜角
+*/
 
 #workspaces {
-    background: #313244;
+    background: linear-gradient(110deg, transparent 10px, #313244 10px, #313244 calc(100% - 10px), transparent calc(100% - 10px));
 }
 
 #window {
-    background: #45475a;
+    background: linear-gradient(110deg, transparent 10px, #45475a 10px, #45475a calc(100% - 10px), transparent calc(100% - 10px));
 }
-
 
 /* 音量 */
 #pulseaudio {
-    background: #f9e2af;
+    background: linear-gradient(110deg, transparent 10px, #f9e2af 10px, #f9e2af calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
-
 
 /* 网络 */
 #network {
-    background: #89b4fa;
+    background: linear-gradient(110deg, transparent 10px, #89b4fa 10px, #89b4fa calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
-
 
 /* CPU */
 #cpu {
-    background: #a6e3a1;
+    background: linear-gradient(110deg, transparent 10px, #a6e3a1 10px, #a6e3a1 calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
-
 
 /* 内存 */
 #memory {
-    background: #cba6f7;
+    background: linear-gradient(110deg, transparent 10px, #cba6f7 10px, #cba6f7 calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
-
 
 /* 时间 */
 #clock {
-    background: #bac2de;
+    background: linear-gradient(110deg, transparent 10px, #bac2de 10px, #bac2de calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
-
 
 /* 托盘 */
 #tray {
-    background: #585b70;
+    background: linear-gradient(110deg, transparent 10px, #585b70 10px, #585b70 calc(100% - 10px), transparent calc(100% - 10px));
 }
-
 
 /* 电池 */
 #battery {
-    background: #fab387;
+    background: linear-gradient(110deg, transparent 10px, #fab387 10px, #fab387 calc(100% - 10px), transparent calc(100% - 10px));
     color: #11111b;
 }
 
 
-/* hover */
+/* hover 效果保持 */
 #workspaces button:hover,
 #pulseaudio:hover,
 #network:hover,
@@ -115,14 +108,15 @@ window#waybar {
     opacity: 0.8;
 }
 
-
-/* 工作区按钮 */
+/* 工作区内部按钮不需要背景，靠父级 workspaces 提供统一的平行四边形背景 */
 #workspaces button {
     padding: 0 8px;
     border-radius: 0;
     color: white;
+    background: transparent; 
 }
 
+/* 如果激活的工作区需要特殊高亮，也可以为其单独切出倾斜背景 */
 #workspaces button.active {
-    background: #f38ba8;
+    background: linear-gradient(110deg, transparent 6px, #f38ba8 6px, #f38ba8 calc(100% - 6px), transparent calc(100% - 6px));
 }
