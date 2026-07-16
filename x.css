@@ -1,4 +1,4 @@
-/* ===== Niri / Waybar Parallelogram Style ===== */
+/* ===== Niri / Waybar Parallelogram Style 3 ===== */
 
 /* 全局 */
 * {
@@ -25,80 +25,81 @@ window#waybar {
 #tray,
 #backlight {
     /* 
-       利用负外边距让倾斜块互相靠拢。
-       由于我们使用渐变切出了斜角，模块两边会有透明留白，
-       通过左右 -10px 的 margin 可以让它们无缝拼接。
+       1. 必须强制清除默认的背景色，否则斜角透明部分会被默认背景填充 
     */
-    margin: 0 -10px; 
-    padding: 4px 24px; /* 增加水平内边距，确保文字不会重叠到斜角区域 */
-}
+    background-color: transparent;
+    background-image: none;
 
-/* 
-   由于没有使用 transform，文字本身天然就是直立的，
-   不需要再做任何反倾斜处理。
-*/
+    /* 
+       2. 负 margin 用于消除倾斜块之间的间隙，让它们无缝拼接。
+       如果觉得拼接得太紧或有重叠，可以微调这个值（比如 -6px 到 -12px 之间）
+    */
+    margin: 0 -8px; 
+    padding: 4px 18px; /* 适当的内边距，防止文字挨着斜边 */
+}
 
 
 /* ==================== 模块背景色控制 ==================== */
 /* 
-   原理说明：
-   linear-gradient(110deg, transparent 10px, #颜色 10px, #颜色 calc(100% - 10px), transparent calc(100% - 10px))
-   - 110deg：决定了倾斜的角度（90deg 是垂直，110deg 相当于向右倾斜 20 度）
-   - transparent 10px 到 #颜色 10px：左侧切出斜角
-   - #颜色 calc(100% - 10px) 到 transparent calc(100% - 10px)：右侧切出平行的斜角
+   使用对 GTK 兼容性最好的纯百分比双停靠点写法：
+   110deg：向右倾斜的角度
+   transparent 12%：左侧斜角透明区
+   #颜色 12.1%：左侧斜角分界线
+   #颜色 88%：右侧斜角分界线
+   transparent 88.1%：右侧斜角透明区
 */
 
 #workspaces {
-    background: linear-gradient(110deg, transparent 10px, #313244 10px, #313244 calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #313244 12.1%, #313244 88%, transparent 88.1%);
 }
 
 #window {
-    background: linear-gradient(110deg, transparent 10px, #45475a 10px, #45475a calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #45475a 12.1%, #45475a 88%, transparent 88.1%);
 }
 
 /* 音量 */
 #pulseaudio {
-    background: linear-gradient(110deg, transparent 10px, #f9e2af 10px, #f9e2af calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #f9e2af 12.1%, #f9e2af 88%, transparent 88.1%);
     color: #11111b;
 }
 
 /* 网络 */
 #network {
-    background: linear-gradient(110deg, transparent 10px, #89b4fa 10px, #89b4fa calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #89b4fa 12.1%, #89b4fa 88%, transparent 88.1%);
     color: #11111b;
 }
 
 /* CPU */
 #cpu {
-    background: linear-gradient(110deg, transparent 10px, #a6e3a1 10px, #a6e3a1 calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #a6e3a1 12.1%, #a6e3a1 88%, transparent 88.1%);
     color: #11111b;
 }
 
 /* 内存 */
 #memory {
-    background: linear-gradient(110deg, transparent 10px, #cba6f7 10px, #cba6f7 calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #cba6f7 12.1%, #cba6f7 88%, transparent 88.1%);
     color: #11111b;
 }
 
 /* 时间 */
 #clock {
-    background: linear-gradient(110deg, transparent 10px, #bac2de 10px, #bac2de calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #bac2de 12.1%, #bac2de 88%, transparent 88.1%);
     color: #11111b;
 }
 
 /* 托盘 */
 #tray {
-    background: linear-gradient(110deg, transparent 10px, #585b70 10px, #585b70 calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #585b70 12.1%, #585b70 88%, transparent 88.1%);
 }
 
 /* 电池 */
 #battery {
-    background: linear-gradient(110deg, transparent 10px, #fab387 10px, #fab387 calc(100% - 10px), transparent calc(100% - 10px));
+    background-image: linear-gradient(110deg, transparent 12%, #fab387 12.1%, #fab387 88%, transparent 88.1%);
     color: #11111b;
 }
 
 
-/* hover 效果保持 */
+/* hover */
 #workspaces button:hover,
 #pulseaudio:hover,
 #network:hover,
@@ -108,7 +109,7 @@ window#waybar {
     opacity: 0.8;
 }
 
-/* 工作区内部按钮不需要背景，靠父级 workspaces 提供统一的平行四边形背景 */
+/* 工作区内部按钮 */
 #workspaces button {
     padding: 0 8px;
     border-radius: 0;
@@ -116,7 +117,6 @@ window#waybar {
     background: transparent; 
 }
 
-/* 如果激活的工作区需要特殊高亮，也可以为其单独切出倾斜背景 */
 #workspaces button.active {
-    background: linear-gradient(110deg, transparent 6px, #f38ba8 6px, #f38ba8 calc(100% - 6px), transparent calc(100% - 6px));
+    background-image: linear-gradient(110deg, transparent 12%, #f38ba8 12.1%, #f38ba8 88%, transparent 88.1%);
 }
