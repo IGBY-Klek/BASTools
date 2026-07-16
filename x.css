@@ -1,4 +1,4 @@
-/* ===== Niri / Waybar Parallelogram Style 3 ===== */
+/* ===== Niri / Waybar Parallelogram Style 4 ===== */
 
 /* 全局 */
 * {
@@ -24,77 +24,78 @@ window#waybar {
 #clock,
 #tray,
 #backlight {
-    /* 
-       1. 必须强制清除默认的背景色，否则斜角透明部分会被默认背景填充 
-    */
     background-color: transparent;
     background-image: none;
 
     /* 
-       2. 负 margin 用于消除倾斜块之间的间隙，让它们无缝拼接。
-       如果觉得拼接得太紧或有重叠，可以微调这个值（比如 -6px 到 -12px 之间）
+       1. 负外边距：用于让模块的倾斜部分无缝重叠。
+       因为左右各切掉了 10px 的斜边，所以用 -10px 刚好完美贴合。
     */
-    margin: 0 -8px; 
-    padding: 4px 18px; /* 适当的内边距，防止文字挨着斜边 */
+    margin: 0 -10px; 
+    
+    /* 
+       2. 充足的左右内边距：防止文字被倾斜的边缘遮挡。
+       左边和右边留出 24px，保证文字处于平行四边形的安全区域内。
+    */
+    padding: 4px 24px; 
 }
 
 
 /* ==================== 模块背景色控制 ==================== */
 /* 
-   使用对 GTK 兼容性最好的纯百分比双停靠点写法：
-   110deg：向右倾斜的角度
-   transparent 12%：左侧斜角透明区
-   #颜色 12.1%：左侧斜角分界线
-   #颜色 88%：右侧斜角分界线
-   transparent 88.1%：右侧斜角透明区
+   全新像素级切角公式说明：
+   linear-gradient(115deg, transparent 10px, #颜色 10.5px, #颜色 calc(100% - 10px), transparent calc(100% - 9.5px))
+   - 115deg：固定的倾斜角。
+   - transparent 10px 到 #颜色 10.5px：仅用 0.5px 的渐变过渡实现硬件级的平滑抗锯齿，消除毛边。
+   - 无论模块多宽，左右两端都刚好切掉 10px 的水平空间，斜率完全一致！
 */
 
 #workspaces {
-    background-image: linear-gradient(110deg, transparent 12%, #313244 12.1%, #313244 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #313244 10.5px, #313244 calc(100% - 10px), transparent calc(100% - 9.5px));
 }
 
 #window {
-    background-image: linear-gradient(110deg, transparent 12%, #45475a 12.1%, #45475a 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #45475a 10.5px, #45475a calc(100% - 10px), transparent calc(100% - 9.5px));
 }
 
 /* 音量 */
 #pulseaudio {
-    background-image: linear-gradient(110deg, transparent 12%, #f9e2af 12.1%, #f9e2af 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #f9e2af 10.5px, #f9e2af calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
 /* 网络 */
 #network {
-    background-image: linear-gradient(110deg, transparent 12%, #89b4fa 12.1%, #89b4fa 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #89b4fa 10.5px, #89b4fa calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
 /* CPU */
 #cpu {
-    background-image: linear-gradient(110deg, transparent 12%, #a6e3a1 12.1%, #a6e3a1 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #a6e3a1 10.5px, #a6e3a1 calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
 /* 内存 */
 #memory {
-    background-image: linear-gradient(110deg, transparent 12%, #cba6f7 12.1%, #cba6f7 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #cba6f7 10.5px, #cba6f7 calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
 /* 时间 */
 #clock {
-    background-image: linear-gradient(110deg, transparent 12%, #bac2de 12.1%, #bac2de 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #bac2de 10.5px, #bac2de calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
 /* 托盘 */
 #tray {
-    background-image: linear-gradient(110deg, transparent 12%, #585b70 12.1%, #585b70 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #585b70 10.5px, #585b70 calc(100% - 10px), transparent calc(100% - 9.5px));
 }
 
 /* 电池 */
 #battery {
-    background-image: linear-gradient(110deg, transparent 12%, #fab387 12.1%, #fab387 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 10px, #fab387 10.5px, #fab387 calc(100% - 10px), transparent calc(100% - 9.5px));
     color: #11111b;
 }
 
@@ -118,5 +119,5 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background-image: linear-gradient(110deg, transparent 12%, #f38ba8 12.1%, #f38ba8 88%, transparent 88.1%);
+    background-image: linear-gradient(115deg, transparent 6px, #f38ba8 6.5px, #f38ba8 calc(100% - 6px), transparent calc(100% - 5.5px));
 }
