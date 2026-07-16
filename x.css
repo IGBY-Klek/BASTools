@@ -1,0 +1,128 @@
+/* ===== Niri / Waybar Parallelogram Style ===== */
+
+/* 全局 */
+* {
+    font-family: "HarmonyOS Sans", "Noto Sans CJK SC", sans-serif;
+    font-size: 13px;
+}
+
+/* bar */
+window#waybar {
+    background: transparent;
+}
+
+/* 所有模块 */
+#custom-,
+#workspaces,
+#window,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#temperature,
+#battery,
+#clock,
+#tray,
+#backlight {
+    margin: 0 2px;
+    padding: 4px 14px;
+    border-radius: 0;
+    transform: skewX(-20deg);
+}
+
+/* 文字反倾斜 */
+#custom- label,
+#workspaces button,
+#window label,
+#pulseaudio label,
+#network label,
+#cpu label,
+#memory label,
+#temperature label,
+#battery label,
+#clock label,
+#tray {
+    transform: skewX(20deg);
+}
+
+
+/* 左侧模块 */
+
+#workspaces {
+    background: #313244;
+}
+
+#window {
+    background: #45475a;
+}
+
+
+/* 音量 */
+#pulseaudio {
+    background: #f9e2af;
+    color: #11111b;
+}
+
+
+/* 网络 */
+#network {
+    background: #89b4fa;
+    color: #11111b;
+}
+
+
+/* CPU */
+#cpu {
+    background: #a6e3a1;
+    color: #11111b;
+}
+
+
+/* 内存 */
+#memory {
+    background: #cba6f7;
+    color: #11111b;
+}
+
+
+/* 时间 */
+#clock {
+    background: #bac2de;
+    color: #11111b;
+}
+
+
+/* 托盘 */
+#tray {
+    background: #585b70;
+}
+
+
+/* 电池 */
+#battery {
+    background: #fab387;
+    color: #11111b;
+}
+
+
+/* hover */
+#workspaces button:hover,
+#pulseaudio:hover,
+#network:hover,
+#cpu:hover,
+#memory:hover,
+#clock:hover {
+    opacity: 0.8;
+}
+
+
+/* 工作区按钮 */
+#workspaces button {
+    padding: 0 8px;
+    border-radius: 0;
+    color: white;
+}
+
+#workspaces button.active {
+    background: #f38ba8;
+}
